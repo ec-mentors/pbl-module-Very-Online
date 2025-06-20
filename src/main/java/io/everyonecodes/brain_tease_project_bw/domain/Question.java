@@ -13,7 +13,7 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String content;             // e.g. "3 + 4 = ?"
+    private String content;             // e.g. "3 + 4 = ?"a
     private String correctAnswer;       // e.g. "7"
 
     private String imageUrl;            // optional, e.g. "/images/puzzle1.png" or a full URL
