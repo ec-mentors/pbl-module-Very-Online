@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Tease</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="game-container">
+    <section id="main-menu" class="game-screen active">
+        <h1>Brain Tease <span class="emoji">🧠</span></h1>
+        <nav class="main-menu-options">
+            <button id="play-button" class="menu-button">Play <span class="emoji">🕹️</span></button>
+            <button id="highscores-button" class="menu-button">Highscores <span class="emoji">🏆</span></button>
+            <button id="settings-button" class="menu-button">Settings <span class="emoji">🔧</span></button>
+        </nav>
+    </section>
+
+    <section id="game-modes-screen" class="game-screen">
+        <h2>Game Modes</h2>
+        <div class="game-mode-options">
+            <button id="normal-mode-button" class="mode-button">Normal Mode</button>
+            <button id="speed-challenge-button" class="mode-button">Speed Challenge</button>
+        </div>
+        <button id="back-to-menu-from-modes" class="back-button">Back to Menu</button>
+    </section>
+
+    <section id="challenge-screen" class="game-screen"></section>
+
+    <section id="score-screen" class="game-screen"></section>
+
+    <section id="enter-name-screen" class="game-screen"></section>
+
+    <section id="normal-leaderboard-screen" class="game-screen">
+        <h2>Normal Mode Scores</h2>
+        <div class="leaderboard-table">
+            <p>Player 1 - 250 - 07.05.2023</p>
+            <p>Player 2 - 195 - 22.05.2023</p>
+            <p>Player 3 - 147 - 15.05.2023</p>
+            <p>Player 4 - 100 - 20.05.2023</p>
+            <p>Player 5 - 22 - 24.05.2023</p>
+        </div>
+        <button id="leaderboard-back-button" class="back-button">Back to Menu</button>
+    </section>
+
+    <section id="speed-leaderboard-screen" class="game-screen"></section>
+
+    <section id="settings-screen" class="game-screen">
+        <h2 class="screen-title">Settings <span class="emoji">🔧</span></h2>
+
+        <div class="setting-group">
+            <p class="setting-label">Language <span class="emoji">🗣️</span></p>
+            <p class="setting-value">English <span class="emoji">🇬🇧</span></p>
+        </div>
+
+        <div class="setting-group">
+            <p class="setting-label">Volume <span class="emoji">🔊</span></p>
+            <div class="volume-slider-container">
+                <div class="volume-track">
+                    <div class="volume-fill" style="width: 50%;"></div>
+                    <div class="volume-thumb"></div>
+                </div>
+                <div class="volume-labels">
+                    <span>0</span>
+                    <span>50</span>
+                    <span>100</span>
+                </div>
+            </div>
+        </div>
+
+        <button id="settings-back-button" class="back-button">Back <span class="emoji">⬅️</span></button>
+    </section>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

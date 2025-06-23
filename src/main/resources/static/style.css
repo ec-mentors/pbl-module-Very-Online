@@ -1,0 +1,242 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #333;
+    color: #eee;
+    margin: 0;
+    overflow: hidden;
+}
+
+#game-container {
+    width: 600px;
+    height: 500px;
+    background-color: #2e2e2e;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    position: relative;
+    overflow: hidden;
+}
+
+.game-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2e2e2e;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: opacity 0.3s ease-in-out;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.game-screen.active {
+    opacity: 1;
+    pointer-events: all;
+    z-index: 10;
+}
+
+/* Common Button Styles */
+.menu-button, .mode-button, .back-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 1.5em;
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.menu-button:hover, .mode-button:hover, .back-button:hover {
+    transform: scale(1.05);
+}
+
+.emoji {
+    font-size: 1em;
+    line-height: 1;
+}
+
+/* Main Menu Specific Styles */
+#main-menu h1 {
+    font-size: 3.5em;
+    color: #fff;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+#main-menu h1 .emoji {
+    font-size: 1.1em;
+}
+
+.main-menu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+#play-button {
+    color: #007bff;
+}
+
+#highscores-button {
+    color: #dc3545;
+}
+
+#settings-button {
+    color: #28a745;
+}
+
+/* Settings Screen Specific Styles */
+#settings-screen {
+    justify-content: flex-start;
+    padding-top: 30px;
+    gap: 0;
+    position: relative;
+}
+
+.screen-title {
+    font-size: 3em;
+    color: #28a745;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: absolute;
+    top: 30px;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+}
+
+.setting-group {
+    width: 80%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+#settings-screen .setting-group:nth-of-type(1) {
+    margin-top: 150px;
+}
+
+#settings-screen .setting-group:nth-of-type(2) {
+    margin-top: 30px;
+}
+
+.setting-label {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.setting-value {
+    font-size: 1.5em;
+    margin-top: 5px;
+    color: #bbb;
+}
+
+/* Volume Slider Custom Styles - IMPORTANT: CHECK THESE */
+.volume-slider-container {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.volume-track {
+    width: 80%;
+    height: 5px;
+    background-color: #555;
+    border-radius: 5px;
+    position: relative; /* CRITICAL: For absolute children */
+    margin-bottom: 10px;
+}
+
+.volume-fill {
+    height: 100%;
+    background-color: #007bff;
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%; /* This sets the initial fill length */
+}
+
+.volume-thumb {
+    width: 18px;
+    height: 18px;
+    background-color: #fff; /* DEBUGGING: Make it red */
+    border: none; /* DEBUGGING: Add a yellow border */
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%; /* CRITICAL: Should place it at 50% of its parent (.volume-track) */
+    transform: translate(-50%, -50%); /* CRITICAL: Centers the thumb itself */
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    z-index: 2;
+}
+
+.volume-labels {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    color: #bbb;
+}
+
+/* Back button specific for settings screen */
+#settings-back-button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translateX(0);
+    color: #007bff;
+    font-size: 1.5em;
+    padding: 10px 20px;
+    z-index: 11;
+}
+
+#settings-back-button:hover {
+    transform: translateX(0) scale(1.05);
+}
+
+/* Leaderboard Specific Styles */
+#normal-leaderboard-screen h2 {
+    font-size: 2.5em;
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+.leaderboard-table p {
+    background-color: #444;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border-radius: 5px;
+    width: 80%;
+    max-width: 450px;
+    text-align: left;
+    font-size: 1.1em;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+#leaderboard-back-button {
+    margin-top: 30px;
+    color: #007bff;
+}
