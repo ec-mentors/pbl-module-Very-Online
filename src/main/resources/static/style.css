@@ -5,7 +5,7 @@ body {
     align-items: center;
     min-height: 100vh;
     background-color: #333;
-    color: #eee;
+    color: #eee; /* Default text color for body, but sometimes overridden */
     margin: 0;
     overflow: hidden;
 }
@@ -66,6 +66,22 @@ body {
     line-height: 1;
 }
 
+/* Common Screen Title Styles (can be overridden by screen-specific rules) */
+/* This is a general style for h1.screen-title, not used by settings H2 */
+.screen-title {
+    font-size: 3em;
+    color: #fff; /* Default color, overridden for specific screens */
+    margin-bottom: 30px; /* Default margin below title */
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: absolute; /* Default to absolute for flexibility */
+    top: 30px;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+}
+
 /* Main Menu Specific Styles */
 #main-menu h1 {
     font-size: 3.5em;
@@ -98,107 +114,111 @@ body {
     color: #28a745;
 }
 
-/* Settings Screen Specific Styles */
+/* Settings Screen Specific Styles - CRITICAL UPDATES FOR VISIBILITY */
 #settings-screen {
-    justify-content: flex-start;
-    padding-top: 30px;
-    gap: 0;
-    position: relative;
+    justify-content: flex-start; /* Align content to the top */
+    padding-top: 30px; /* Padding at the very top of the screen */
+    gap: 20px; /* Space between setting items */
+    position: relative; /* Essential for absolute back button */
+    padding-bottom: 60px; /* Ensure space for the back button at the bottom */
 }
 
-.screen-title {
+/* Styling for the H2 title in settings */
+#settings-screen h2 {
     font-size: 3em;
-    color: #28a745;
-    margin-bottom: 0;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    position: absolute;
-    top: 30px;
-    width: 100%;
-    justify-content: center;
-    text-align: center;
+    color: #28a745; /* Green color for Settings title */
+    margin-bottom: 40px; /* Space below the title before first setting item */
+    margin-top: 0; /* Reset default browser margin */
+    text-align: center; /* Ensure title is centered */
+    width: 100%; /* Take full width to allow centering */
 }
 
-.setting-group {
+.setting-item {
     width: 80%;
     max-width: 400px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    margin-bottom: 0;
+    align-items: flex-start; /* Align label and input to the left within the item */
+    margin-bottom: 15px; /* Space between different setting items */
 }
 
-#settings-screen .setting-group:nth-of-type(1) {
-    margin-top: 150px;
-}
-
-#settings-screen .setting-group:nth-of-type(2) {
-    margin-top: 30px;
-}
-
-.setting-label {
-    font-size: 1.8em;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.setting-value {
+.setting-item label {
     font-size: 1.5em;
-    margin-top: 5px;
-    color: #bbb;
+    margin-bottom: 5px;
+    color: #eee; /* ENSURE label text is visible and light */
 }
 
-/* Volume Slider Custom Styles - IMPORTANT: CHECK THESE */
-.volume-slider-container {
+/* Styling for the select dropdown */
+.setting-item select {
     width: 100%;
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.volume-track {
-    width: 80%;
-    height: 5px;
-    background-color: #555;
+    padding: 8px 12px;
+    font-size: 1.2em;
+    background-color: #444;
+    color: #eee; /* ENSURE select text is visible and light */
+    border: 1px solid #555;
     border-radius: 5px;
-    position: relative; /* CRITICAL: For absolute children */
-    margin-bottom: 10px;
+    appearance: none; /* Remove default system arrow */
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292%22%20height%3D%22292%22%3E%3Cpath%20fill%3D%22%23eeeeee%22%20d%3D%22M287%2069L146%20208%205%2069z%22%2F%3E%3C%2Fsvg%3E'); /* Custom arrow */
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    cursor: pointer;
 }
 
-.volume-fill {
-    height: 100%;
-    background-color: #007bff;
+.setting-item select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* Styling for the volume slider (input type="range") */
+.setting-item input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none; /* Remove default styling for Chrome/Safari */
+    appearance: none;
+    background: transparent; /* Make track transparent */
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* Styling the track */
+.setting-item input[type="range"]::-webkit-slider-runnable-track {
+    height: 8px;
+    background: #555;
     border-radius: 5px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 50%; /* This sets the initial fill length */
+}
+.setting-item input[type="range"]::-moz-range-track {
+    height: 8px;
+    background: #555;
+    border-radius: 5px;
 }
 
-.volume-thumb {
-    width: 18px;
+/* Styling the thumb (slider handle) */
+.setting-item input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default styling */
+    appearance: none;
+    margin-top: -5px; /* Adjust vertical position */
     height: 18px;
-    background-color: #fff; /* DEBUGGING: Make it red */
-    border: none; /* DEBUGGING: Add a yellow border */
+    width: 18px;
+    background-color: #007bff; /* Blue thumb */
     border-radius: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%; /* CRITICAL: Should place it at 50% of its parent (.volume-track) */
-    transform: translate(-50%, -50%); /* CRITICAL: Centers the thumb itself */
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
-    z-index: 2;
+}
+.setting-item input[type="range"]::-moz-range-thumb {
+    height: 18px;
+    width: 18px;
+    background-color: #007bff; /* Blue thumb */
+    border-radius: 50%;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
 }
 
-.volume-labels {
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9em;
-    color: #bbb;
+/* Styling for the volume percentage display */
+#volume-value {
+    font-size: 1.2em;
+    color: #bbb; /* ENSURE volume value text is visible */
+    margin-top: 10px;
+    text-align: center;
+    width: 100%; /* Ensure it takes full width to center */
 }
 
 /* Back button specific for settings screen */
@@ -207,7 +227,7 @@ body {
     bottom: 0;
     left: 0;
     transform: translateX(0);
-    color: #007bff;
+    color: #007bff; /* ENSURE back button text is visible */
     font-size: 1.5em;
     padding: 10px 20px;
     z-index: 11;
@@ -239,4 +259,47 @@ body {
 #leaderboard-back-button {
     margin-top: 30px;
     color: #007bff;
+}
+
+/* Challenges Screen Specific Styles */
+#challenges-screen {
+    justify-content: center; /* Center content vertically initially */
+    padding-top: 100px; /* Adjust padding to make room for title at top if needed */
+    gap: 40px; /* Space between buttons */
+    position: relative; /* For absolute positioning of title and back button */
+    padding-bottom: 60px; /* Ensure space for the back button at the bottom */
+}
+
+/* Override screen-title specific for Challenges screen to be blue */
+#challenges-screen .screen-title {
+    color: #007bff; /* Blue color for Challenges title */
+    position: absolute; /* Position title at the top */
+    top: 30px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0; /* Remove default margin-bottom from common .screen-title */
+}
+
+.normal-mode-option {
+    color: #007bff; /* Blue color for Normal Mode */
+}
+
+.speed-challenge-option {
+    color: #ffc107; /* Yellow/Amber color for Speed Challenge */
+}
+
+/* Back button specific for Challenges screen */
+#challenges-back-button {
+    position: absolute;
+    bottom: 0; /* Position at the bottom */
+    left: 0;   /* Position at the left */
+    transform: translateX(0); /* Remove any default button transformations that might offset it */
+    color: #007bff;
+    font-size: 1.5em;
+    padding: 10px 20px;
+    z-index: 11;
+}
+
+#challenges-back-button:hover {
+    transform: translateX(0) scale(1.05);
 }
