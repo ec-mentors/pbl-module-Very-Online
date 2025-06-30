@@ -9,11 +9,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/leaderboard")
-public class LeaderboardEndpoint {
+public class LeaderboardController {
 
     private final LeaderboardService leaderboardService;
 
-    public LeaderboardEndpoint(LeaderboardService leaderboardService) {
+    public LeaderboardController(LeaderboardService leaderboardService) {
         this.leaderboardService = leaderboardService;
     }
 

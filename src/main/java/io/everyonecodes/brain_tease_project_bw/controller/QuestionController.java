@@ -8,11 +8,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/questions")
-public class QuestionEndpoint {
+public class QuestionController {
 
     private final QuestionService questionService;
 
-    public QuestionEndpoint(QuestionService questionService) {
+    public QuestionController(QuestionService questionService) {
         this.questionService = questionService;
     }
 

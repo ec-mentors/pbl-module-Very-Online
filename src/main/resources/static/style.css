@@ -21,31 +21,33 @@ body {
 }
 
 .game-screen {
-    position: absolute;
+    position: absolute !important; /* Ensure absolute positioning */
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: #2e2e2e;
-    display: flex;
+    display: flex !important; /* Ensure flex display is always active for layout */
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
     box-sizing: border-box;
     transition: opacity 0.3s ease-in-out;
-    opacity: 0;
-    pointer-events: none;
+    opacity: 0 !important; /* Hide by default */
+    pointer-events: none !important; /* Disable interaction when hidden */
+    z-index: 0 !important; /* Keep hidden screens behind active one */
+    transform: translateY(0); /* Ensure no unintended transforms */
 }
 
 .game-screen.active {
-    opacity: 1;
-    pointer-events: all;
-    z-index: 10;
+    opacity: 1 !important; /* Show when active */
+    pointer-events: all !important; /* Enable interaction when active */
+    z-index: 10 !important; /* Bring active screen to front */
 }
 
 /* Common Button Styles */
-.menu-button, .mode-button, .back-button {
+.menu-button, .mode-button, .back-button, .action-button {
     background: none;
     border: none;
     cursor: pointer;
@@ -57,13 +59,29 @@ body {
     gap: 15px;
 }
 
-.menu-button:hover, .mode-button:hover, .back-button:hover {
+.menu-button:hover, .mode-button:hover, .back-button:hover, .action-button:hover {
     transform: scale(1.05);
 }
 
 .emoji {
     font-size: 1em;
     line-height: 1;
+}
+
+/* Common Fixed Position for Back Buttons */
+.fixed-bottom-left-button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translateX(0); /* Ensure no unwanted offset from parent .game-screen's flex centering */
+    font-size: 1.5em; /* Consistent font size */
+    padding: 10px 20px; /* Consistent padding */
+    z-index: 11; /* Ensure it's on top of game content */
+}
+
+/* Override hover for fixed buttons to only scale, not translate */
+.fixed-bottom-left-button:hover {
+    transform: scale(1.05); /* Only scale on hover */
 }
 
 /* Common Screen Title Styles (used for Challenges H1 and Settings H2) */
@@ -113,11 +131,11 @@ body {
     color: #28a745;
 }
 
-/* Settings Screen Specific Styles - UPDATED FOR NEW HTML STRUCTURE */
+/* Settings Screen Specific Styles */
 #settings-screen {
-    justify-content: flex-start; /* Align content to the top */
+    justify-content: center; /* Align content to the top */
     padding-top: 30px; /* Padding at the very top of the screen */
-    gap: 0; /* Managed by setting-group margins */
+    gap: 40px; /* Managed by setting-group margins */
     position: relative; /* Essential for absolute back button and title */
     padding-bottom: 60px; /* Ensure space for the back button at the bottom */
 }
@@ -135,14 +153,12 @@ body {
     flex-direction: column;
     align-items: center;
     margin-bottom: 30px; /* Space between different setting groups */
-    /* Adjust margin-top for initial spacing from title */
 }
 
 /* Specific top margin for the first setting group to space it from the absolute title */
 #settings-screen .setting-group:first-of-type {
     margin-top: 100px; /* Adjust this value if needed to space from the title */
 }
-
 
 .setting-label {
     font-size: 1.8em;
@@ -159,7 +175,7 @@ body {
     color: #bbb; /* Ensure value text is visible */
 }
 
-/* Custom Volume Slider Styles - REINTRODUCED */
+/* Custom Volume Slider Styles */
 .volume-slider-container {
     width: 100%;
     margin-top: 20px;
@@ -196,7 +212,7 @@ body {
     top: 50%;
     left: 50%; /* Initial position, will be updated by JS */
     transform: translate(-50%, -50%); /* Centers the thumb itself */
-    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     z-index: 2;
 }
 
@@ -208,23 +224,12 @@ body {
     color: #bbb;
 }
 
-/* Back button specific for settings screen */
+/* Back button specific for settings screen (Now only defines color, position from .fixed-bottom-left-button) */
 #settings-back-button {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    transform: translateX(0); /* Reset any default button transforms */
     color: #007bff;
-    font-size: 1.5em;
-    padding: 10px 20px;
-    z-index: 11;
 }
 
-#settings-back-button:hover {
-    transform: translateX(0) scale(1.05);
-}
-
-/* Leaderboard Specific Styles */
+/* Leaderboard Specific Styles (Normal Mode) */
 #normal-leaderboard-screen h2 {
     font-size: 2.5em;
     color: #fff;
@@ -240,53 +245,155 @@ body {
     max-width: 450px;
     text-align: left;
     font-size: 1.1em;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-#leaderboard-back-button {
-    margin-top: 30px;
+/* Normal Leaderboard Back Button (Now only defines color) */
+#normal-leaderboard-back-button {
+    color: #007bff;
+}
+
+/* Leaderboard Specific Styles (Speed Challenge) */
+#speed-leaderboard-screen h2 {
+    font-size: 2.5em;
+    color: #fff;
+    margin-bottom: 30px;
+}
+
+/* Speed Leaderboard Back Button (Now only defines color) */
+#speed-leaderboard-back-button {
+    color: #007bff;
+}
+
+/* Leaderboard Selection Screen Specific Styles */
+#leaderboard-selection-screen {
+    justify-content: center;
+    padding-top: 100px;
+    gap: 40px;
+    position: relative;
+    padding-bottom: 60px;
+}
+
+/* Override screen-title specific for Leaderboard Selection screen to be red */
+#leaderboard-selection-screen .screen-title {
+    color: #dc3545;
+    position: absolute;
+    top: 30px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+/* Back button specific for Leaderboard Selection screen (Now only defines color) */
+#leaderboard-select-back-button {
     color: #007bff;
 }
 
 /* Challenges Screen Specific Styles */
 #challenges-screen {
-    justify-content: center; /* Center content vertically initially */
-    padding-top: 100px; /* Adjust padding to make room for title at top if needed */
-    gap: 40px; /* Space between buttons */
-    position: relative; /* For absolute positioning of title and back button */
-    padding-bottom: 60px; /* Ensure space for the back button at the bottom */
+    justify-content: center;
+    padding-top: 100px;
+    gap: 40px;
+    position: relative;
+    padding-bottom: 60px;
 }
 
 /* Override screen-title specific for Challenges screen to be blue */
 #challenges-screen .screen-title {
-    color: #007bff; /* Blue color for Challenges title */
-    position: absolute; /* Position title at the top */
+    color: #007bff;
+    position: absolute;
     top: 30px;
     width: 100%;
     text-align: center;
-    margin-bottom: 0; /* Remove default margin-bottom from common .screen-title */
+    margin-bottom: 0;
 }
 
 .normal-mode-option {
-    color: #007bff; /* Blue color for Normal Mode */
+    color: #007bff;
 }
 
 .speed-challenge-option {
-    color: #ffc107; /* Yellow/Amber color for Speed Challenge */
+    color: #ffc107;
 }
 
-/* Back button specific for Challenges screen */
+/* Back button specific for Challenges screen (Now only defines color) */
 #challenges-back-button {
-    position: absolute;
-    bottom: 0; /* Position at the bottom */
-    left: 0;   /* Position at the left */
-    transform: translateX(0); /* Remove any default button transformations that might offset it */
     color: #007bff;
-    font-size: 1.5em;
-    padding: 10px 20px;
-    z-index: 11;
 }
 
-#challenges-back-button:hover {
-    transform: translateX(0) scale(1.05);
+/* Normal Mode Game Screen Specific Styles */
+#normal-game-screen {
+    justify-content: center; /* Vertically center the content */
+    padding-top: 80px; /* Space for the header */
+    padding-bottom: 60px; /* Space for the back button */
+    gap: 30px; /* Space between elements */
+    position: relative; /* For positioning header and back button */
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    width: 90%; /* Adjust as needed */
+    max-width: 500px; /* Match input width */
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #eee;
+    font-size: 1.2em;
+}
+
+.game-info {
+    padding: 5px 10px;
+    background-color: #3a3a3a;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.question-text {
+    font-size: 2.2em;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 0 20px; /* Add some horizontal padding */
+}
+
+.answer-input {
+    width: 80%;
+    max-width: 400px; /* Set a max-width for the input field */
+    padding: 15px;
+    font-size: 1.5em;
+    text-align: center;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    color: #333;
+    outline: none;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.answer-input:focus {
+    border-color: #0056b3;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.3), 0 0 8px rgba(0,123,255,0.5);
+}
+
+.action-button {
+    background-color: #28a745; /* Green for submit */
+    color: #fff;
+    border-radius: 8px;
+    padding: 12px 25px;
+    font-size: 1.3em;
+    margin-top: 20px; /* Space from input */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.action-button:hover {
+    background-color: #218838;
+    transform: scale(1.03);
+}
+
+/* Normal Game Back Button (Now only defines color) */
+#normal-game-back-button {
+    color: #007bff;
 }
