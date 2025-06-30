@@ -8,6 +8,7 @@
 </head>
 <body>
 <div id="game-container">
+    <!-- Main Menu -->
     <section id="main-menu" class="game-screen active">
         <h1>Brain Tease <span class="emoji">🧠</span></h1>
         <nav class="main-menu-options">
@@ -17,23 +18,22 @@
         </nav>
     </section>
 
-    <div id="challenges-screen" class="game-screen">
+    <!-- Challenges Screen -->
+    <section id="challenges-screen" class="game-screen">
         <h1 class="screen-title">Challenges <span class="emoji">🧘‍♀️🧘</span></h1>
-
         <button id="normal-mode-button" class="mode-button normal-mode-option">Normal Mode <span class="emoji">🤖</span></button>
         <button id="speed-challenge-button" class="mode-button speed-challenge-option">Speed Challenge <span class="emoji">⚡</span></button>
-
         <button id="challenges-back-button" class="back-button">Back <span class="emoji">⬅️</span></button>
-    </div>
+    </section>
 
+    <!-- Placeholder Screens -->
     <section id="challenge-screen" class="game-screen"></section>
-
     <section id="score-screen" class="game-screen"></section>
-
     <section id="enter-name-screen" class="game-screen"></section>
 
+    <!-- Leaderboard Screen -->
     <section id="normal-leaderboard-screen" class="game-screen">
-        <h2>Normal Mode Scores</h2>
+        <h1>Normal Mode Scores</h1>
         <div class="leaderboard-table">
             <p>Player 1 - 250 - 07.05.2023</p>
             <p>Player 2 - 195 - 22.05.2023</p>
@@ -44,10 +44,9 @@
         <button id="leaderboard-back-button" class="back-button">Back to Menu</button>
     </section>
 
-    <section id="speed-leaderboard-screen" class="game-screen"></section>
-
+    <!-- Settings Screen -->
     <section id="settings-screen" class="game-screen">
-        <h2 class="screen-title">Settings <span class="emoji">🔧</span></h2>
+        <h1 class="screen-title">Settings <span class="emoji">🔧</span></h1>
 
         <div class="setting-group">
             <p class="setting-label">Language <span class="emoji">🗣️</span></p>
@@ -72,6 +71,8 @@
         <button id="settings-back-button" class="back-button">Back <span class="emoji">⬅️</span></button>
     </section>
 
+    <!-- Optional: Empty screen placeholder -->
+    <section id="speed-leaderboard-screen" class="game-screen"></section>
 </div>
 
 <script src="script.js"></script>

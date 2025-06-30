@@ -5,7 +5,7 @@ body {
     align-items: center;
     min-height: 100vh;
     background-color: #333;
-    color: #eee; /* Default text color for body, but sometimes overridden */
+    color: #eee;
     margin: 0;
     overflow: hidden;
 }
@@ -66,8 +66,7 @@ body {
     line-height: 1;
 }
 
-/* Common Screen Title Styles (can be overridden by screen-specific rules) */
-/* This is a general style for h1.screen-title, not used by settings H2 */
+/* Common Screen Title Styles (used for Challenges H1 and Settings H2) */
 .screen-title {
     font-size: 3em;
     color: #fff; /* Default color, overridden for specific screens */
@@ -114,111 +113,99 @@ body {
     color: #28a745;
 }
 
-/* Settings Screen Specific Styles - CRITICAL UPDATES FOR VISIBILITY */
+/* Settings Screen Specific Styles - UPDATED FOR NEW HTML STRUCTURE */
 #settings-screen {
     justify-content: flex-start; /* Align content to the top */
     padding-top: 30px; /* Padding at the very top of the screen */
-    gap: 20px; /* Space between setting items */
-    position: relative; /* Essential for absolute back button */
+    gap: 0; /* Managed by setting-group margins */
+    position: relative; /* Essential for absolute back button and title */
     padding-bottom: 60px; /* Ensure space for the back button at the bottom */
 }
 
-/* Styling for the H2 title in settings */
-#settings-screen h2 {
-    font-size: 3em;
+/* Settings screen title specific styling (using .screen-title class) */
+#settings-screen .screen-title {
     color: #28a745; /* Green color for Settings title */
-    margin-bottom: 40px; /* Space below the title before first setting item */
-    margin-top: 0; /* Reset default browser margin */
-    text-align: center; /* Ensure title is centered */
-    width: 100%; /* Take full width to allow centering */
+    margin-bottom: 0; /* Remove default margin-bottom from common .screen-title */
 }
 
-.setting-item {
+.setting-group {
     width: 80%;
     max-width: 400px;
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Align label and input to the left within the item */
-    margin-bottom: 15px; /* Space between different setting items */
+    align-items: center;
+    margin-bottom: 30px; /* Space between different setting groups */
+    /* Adjust margin-top for initial spacing from title */
 }
 
-.setting-item label {
+/* Specific top margin for the first setting group to space it from the absolute title */
+#settings-screen .setting-group:first-of-type {
+    margin-top: 100px; /* Adjust this value if needed to space from the title */
+}
+
+
+.setting-label {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #eee; /* Ensure label text is visible */
+}
+
+.setting-value {
     font-size: 1.5em;
-    margin-bottom: 5px;
-    color: #eee; /* ENSURE label text is visible and light */
+    margin-top: 5px;
+    color: #bbb; /* Ensure value text is visible */
 }
 
-/* Styling for the select dropdown */
-.setting-item select {
+/* Custom Volume Slider Styles - REINTRODUCED */
+.volume-slider-container {
     width: 100%;
-    padding: 8px 12px;
-    font-size: 1.2em;
-    background-color: #444;
-    color: #eee; /* ENSURE select text is visible and light */
-    border: 1px solid #555;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.volume-track {
+    width: 80%;
+    height: 5px;
+    background-color: #555;
     border-radius: 5px;
-    appearance: none; /* Remove default system arrow */
-    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292%22%20height%3D%22292%22%3E%3Cpath%20fill%3D%22%23eeeeee%22%20d%3D%22M287%2069L146%20208%205%2069z%22%2F%3E%3C%2Fsvg%3E'); /* Custom arrow */
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 12px;
-    cursor: pointer;
+    position: relative; /* CRITICAL: For absolute children */
+    margin-bottom: 10px;
 }
 
-.setting-item select:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-}
-
-/* Styling for the volume slider (input type="range") */
-.setting-item input[type="range"] {
-    width: 100%;
-    -webkit-appearance: none; /* Remove default styling for Chrome/Safari */
-    appearance: none;
-    background: transparent; /* Make track transparent */
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-/* Styling the track */
-.setting-item input[type="range"]::-webkit-slider-runnable-track {
-    height: 8px;
-    background: #555;
+.volume-fill {
+    height: 100%;
+    background-color: #007bff;
     border-radius: 5px;
-}
-.setting-item input[type="range"]::-moz-range-track {
-    height: 8px;
-    background: #555;
-    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%; /* This sets the initial fill length as per HTML inline style */
 }
 
-/* Styling the thumb (slider handle) */
-.setting-item input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none; /* Remove default styling */
-    appearance: none;
-    margin-top: -5px; /* Adjust vertical position */
-    height: 18px;
+.volume-thumb {
     width: 18px;
-    background-color: #007bff; /* Blue thumb */
-    border-radius: 50%;
-    box-shadow: 0 0 5px rgba(0,0,0,0.5);
-}
-.setting-item input[type="range"]::-moz-range-thumb {
     height: 18px;
-    width: 18px;
-    background-color: #007bff; /* Blue thumb */
+    background-color: #fff;
     border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%; /* Initial position, will be updated by JS */
+    transform: translate(-50%, -50%); /* Centers the thumb itself */
     box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    z-index: 2;
 }
 
-/* Styling for the volume percentage display */
-#volume-value {
-    font-size: 1.2em;
-    color: #bbb; /* ENSURE volume value text is visible */
-    margin-top: 10px;
-    text-align: center;
-    width: 100%; /* Ensure it takes full width to center */
+.volume-labels {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    color: #bbb;
 }
 
 /* Back button specific for settings screen */
@@ -226,8 +213,8 @@ body {
     position: absolute;
     bottom: 0;
     left: 0;
-    transform: translateX(0);
-    color: #007bff; /* ENSURE back button text is visible */
+    transform: translateX(0); /* Reset any default button transforms */
+    color: #007bff;
     font-size: 1.5em;
     padding: 10px 20px;
     z-index: 11;

@@ -64,4 +64,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialize: Show the main menu when the page loads
     showScreen(mainMenuScreen);
+    // This is the new line you should have at the very end of this block:
+    console.log('Main Menu classList after showScreen:', mainMenuScreen.classList.value);
 });
