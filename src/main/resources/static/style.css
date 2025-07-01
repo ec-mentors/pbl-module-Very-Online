@@ -21,29 +21,18 @@ body {
 }
 
 .game-screen {
-    position: absolute !important; /* Ensure absolute positioning */
+    position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: #2e2e2e;
-    display: flex !important; /* Ensure flex display is always active for layout */
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
     box-sizing: border-box;
-    transition: opacity 0.3s ease-in-out;
-    opacity: 0 !important; /* Hide by default */
-    pointer-events: none !important; /* Disable interaction when hidden */
-    z-index: 0 !important; /* Keep hidden screens behind active one */
-    transform: translateY(0); /* Ensure no unintended transforms */
-}
-
-.game-screen.active {
-    opacity: 1 !important; /* Show when active */
-    pointer-events: all !important; /* Enable interaction when active */
-    z-index: 10 !important; /* Bring active screen to front */
 }
 
 /* Common Button Styles */
@@ -57,6 +46,11 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
+    text-decoration: none; /* Add this line to remove underlines */
+}
+
+.back-button {
+    gap: 0; /* Override the gap for back buttons */
 }
 
 .menu-button:hover, .mode-button:hover, .back-button:hover, .action-button:hover {
@@ -73,30 +67,35 @@ body {
     position: absolute;
     bottom: 0;
     left: 0;
-    transform: translateX(0); /* Ensure no unwanted offset from parent .game-screen's flex centering */
-    font-size: 1.5em; /* Consistent font size */
-    padding: 10px 20px; /* Consistent padding */
-    z-index: 11; /* Ensure it's on top of game content */
+    transform: translateX(0);
+    font-size: 1.5em;
+    padding: 10px 20px;
+    z-index: 11;
 }
 
 /* Override hover for fixed buttons to only scale, not translate */
 .fixed-bottom-left-button:hover {
-    transform: scale(1.05); /* Only scale on hover */
+    transform: scale(1.05);
 }
 
 /* Common Screen Title Styles (used for Challenges H1 and Settings H2) */
 .screen-title {
     font-size: 3em;
-    color: #fff; /* Default color, overridden for specific screens */
-    margin-bottom: 30px; /* Default margin below title */
+    color: #fff;
+    margin-bottom: 30px;
     display: flex;
     align-items: center;
     gap: 15px;
-    position: absolute; /* Default to absolute for flexibility */
+    position: absolute;
     top: 30px;
     width: 100%;
     justify-content: center;
     text-align: center;
+}
+
+#main-menu {
+    padding-top: 50px;
+    padding-bottom: 60px;
 }
 
 /* Main Menu Specific Styles */
@@ -107,6 +106,7 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
+    margin-top: -80px;
 }
 
 #main-menu h1 .emoji {
@@ -114,8 +114,10 @@ body {
 }
 
 .main-menu-options {
+    margin-top: 80px;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 25px;
 }
 
@@ -133,17 +135,17 @@ body {
 
 /* Settings Screen Specific Styles */
 #settings-screen {
-    justify-content: center; /* Align content to the top */
-    padding-top: 30px; /* Padding at the very top of the screen */
-    gap: 40px; /* Managed by setting-group margins */
-    position: relative; /* Essential for absolute back button and title */
-    padding-bottom: 60px; /* Ensure space for the back button at the bottom */
+    justify-content: center;
+    padding-top: 30px;
+    gap: 40px;
+    position: relative;
+    padding-bottom: 60px;
 }
 
 /* Settings screen title specific styling (using .screen-title class) */
 #settings-screen .screen-title {
-    color: #28a745; /* Green color for Settings title */
-    margin-bottom: 0; /* Remove default margin-bottom from common .screen-title */
+    color: #28a745;
+    margin-bottom: 0;
 }
 
 .setting-group {
@@ -152,12 +154,12 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 30px; /* Space between different setting groups */
+    margin-bottom: 30px;
 }
 
 /* Specific top margin for the first setting group to space it from the absolute title */
 #settings-screen .setting-group:first-of-type {
-    margin-top: 100px; /* Adjust this value if needed to space from the title */
+    margin-top: 100px;
 }
 
 .setting-label {
@@ -166,13 +168,13 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: #eee; /* Ensure label text is visible */
+    color: #eee;
 }
 
 .setting-value {
     font-size: 1.5em;
     margin-top: 5px;
-    color: #bbb; /* Ensure value text is visible */
+    color: #bbb;
 }
 
 /* Custom Volume Slider Styles */
@@ -189,7 +191,7 @@ body {
     height: 5px;
     background-color: #555;
     border-radius: 5px;
-    position: relative; /* CRITICAL: For absolute children */
+    position: relative;
     margin-bottom: 10px;
 }
 
@@ -200,7 +202,7 @@ body {
     position: absolute;
     top: 0;
     left: 0;
-    width: 50%; /* This sets the initial fill length as per HTML inline style */
+    width: 50%;
 }
 
 .volume-thumb {
@@ -210,8 +212,8 @@ body {
     border-radius: 50%;
     position: absolute;
     top: 50%;
-    left: 50%; /* Initial position, will be updated by JS */
-    transform: translate(-50%, -50%); /* Centers the thumb itself */
+    left: 50%;
+    transform: translate(-50%, -50%);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     z-index: 2;
 }
@@ -323,18 +325,18 @@ body {
 
 /* Normal Mode Game Screen Specific Styles */
 #normal-game-screen {
-    justify-content: center; /* Vertically center the content */
-    padding-top: 80px; /* Space for the header */
-    padding-bottom: 60px; /* Space for the back button */
-    gap: 30px; /* Space between elements */
-    position: relative; /* For positioning header and back button */
+    justify-content: center;
+    padding-top: 80px;
+    padding-bottom: 60px;
+    gap: 30px;
+    position: relative;
 }
 
 .game-header {
     display: flex;
     justify-content: space-between;
-    width: 90%; /* Adjust as needed */
-    max-width: 500px; /* Match input width */
+    width: 90%;
+    max-width: 500px;
     position: absolute;
     top: 30px;
     left: 50%;
@@ -347,7 +349,7 @@ body {
     padding: 5px 10px;
     background-color: #3a3a3a;
     border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .question-text {
@@ -355,12 +357,12 @@ body {
     color: #fff;
     text-align: center;
     margin-bottom: 20px;
-    padding: 0 20px; /* Add some horizontal padding */
+    padding: 0 20px;
 }
 
 .answer-input {
     width: 80%;
-    max-width: 400px; /* Set a max-width for the input field */
+    max-width: 400px;
     padding: 15px;
     font-size: 1.5em;
     text-align: center;
@@ -369,23 +371,23 @@ body {
     background-color: #f5f5f5;
     color: #333;
     outline: none;
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
     transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
 .answer-input:focus {
     border-color: #0056b3;
-    box-shadow: inset 0 2px 5px rgba(0,0,0,0.3), 0 0 8px rgba(0,123,255,0.5);
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3), 0 0 8px rgba(0, 123, 255, 0.5);
 }
 
 .action-button {
-    background-color: #28a745; /* Green for submit */
+    background-color: #28a745;
     color: #fff;
     border-radius: 8px;
     padding: 12px 25px;
     font-size: 1.3em;
-    margin-top: 20px; /* Space from input */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
 
 .action-button:hover {

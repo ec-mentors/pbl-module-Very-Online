@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Leaderboard</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div id="game-container">
+    <section class="game-screen active" id="leaderboard-selection-screen">
+        <h1 class="screen-title">Highscores <span class="emoji">🏆</span></h1>
+        <a class="mode-button normal-mode-option" th:href="@{/leaderboard/normal}">Normal Mode Scores <span
+                class="emoji">🤖</span></a>
+        <a class="mode-button speed-challenge-option" th:href="@{/leaderboard/speed}">Speed Challenge Scores <span
+                class="emoji">⚡</span></a>
+        <a class="back-button fixed-bottom-left-button" th:href="@{/}">Back<span class="emoji">⬅️</span></a>
+    </section>
+</div>
+</body>
+</html>
