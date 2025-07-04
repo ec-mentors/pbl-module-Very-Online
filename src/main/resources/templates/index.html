@@ -10,12 +10,15 @@
     <section class="game-screen active" id="main-menu">
         <h1>Brain Tease <span class="emoji">🧠</span></h1>
         <nav class="main-menu-options">
-            <a class="menu-button" id="play-button" th:href="@{/challenges}">Play <span class="emoji">🕹️</span></a>
-            <a class="menu-button" id="highscores-button" th:href="@{/leaderboard}">Highscores <span
+            <a class="menu-button" id="play-button" th:href="@{/mode-selection}">Play <span class="emoji">🕹️</span></a>
+            <a class="menu-button" id="highscores-button" th:href="@{/highscores}">Highscores <span
                     class="emoji">🏆</span></a>
             <a class="menu-button" id="settings-button" th:href="@{/settings}">Settings <span class="emoji">🔧</span></a>
         </nav>
     </section>
+    <button id="music-toggle-button" class="music-button">🎵</button>
 </div>
+<audio id="background-music" src="/music/background-loop.mp3" loop></audio>
+<script src="/js/music-player.js"></script>
 </body>
 </html>

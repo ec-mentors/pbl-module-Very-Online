@@ -35,7 +35,6 @@ body {
     box-sizing: border-box;
 }
 
-/* Common Button Styles */
 .menu-button, .mode-button, .back-button, .action-button {
     background: none;
     border: none;
@@ -46,11 +45,11 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
-    text-decoration: none; /* Add this line to remove underlines */
+    text-decoration: none;
 }
 
 .back-button {
-    gap: 0; /* Override the gap for back buttons */
+    gap: 0;
 }
 
 .menu-button:hover, .mode-button:hover, .back-button:hover, .action-button:hover {
@@ -62,7 +61,6 @@ body {
     line-height: 1;
 }
 
-/* Common Fixed Position for Back Buttons */
 .fixed-bottom-left-button {
     position: absolute;
     bottom: 0;
@@ -73,12 +71,10 @@ body {
     z-index: 11;
 }
 
-/* Override hover for fixed buttons to only scale, not translate */
 .fixed-bottom-left-button:hover {
     transform: scale(1.05);
 }
 
-/* Common Screen Title Styles (used for Challenges H1 and Settings H2) */
 .screen-title {
     font-size: 3em;
     color: #fff;
@@ -98,7 +94,6 @@ body {
     padding-bottom: 60px;
 }
 
-/* Main Menu Specific Styles */
 #main-menu h1 {
     font-size: 3.5em;
     color: #fff;
@@ -133,7 +128,6 @@ body {
     color: #28a745;
 }
 
-/* Settings Screen Specific Styles */
 #settings-screen {
     justify-content: center;
     padding-top: 30px;
@@ -142,7 +136,6 @@ body {
     padding-bottom: 60px;
 }
 
-/* Settings screen title specific styling (using .screen-title class) */
 #settings-screen .screen-title {
     color: #28a745;
     margin-bottom: 0;
@@ -157,7 +150,6 @@ body {
     margin-bottom: 30px;
 }
 
-/* Specific top margin for the first setting group to space it from the absolute title */
 #settings-screen .setting-group:first-of-type {
     margin-top: 100px;
 }
@@ -177,7 +169,6 @@ body {
     color: #bbb;
 }
 
-/* Custom Volume Slider Styles */
 .volume-slider-container {
     width: 100%;
     margin-top: 20px;
@@ -226,12 +217,10 @@ body {
     color: #bbb;
 }
 
-/* Back button specific for settings screen (Now only defines color, position from .fixed-bottom-left-button) */
 #settings-back-button {
     color: #007bff;
 }
 
-/* Leaderboard Specific Styles (Normal Mode) */
 #normal-leaderboard-screen h2 {
     font-size: 2.5em;
     color: #fff;
@@ -250,25 +239,21 @@ body {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-/* Normal Leaderboard Back Button (Now only defines color) */
 #normal-leaderboard-back-button {
     color: #007bff;
 }
 
-/* Leaderboard Specific Styles (Speed Challenge) */
 #speed-leaderboard-screen h2 {
     font-size: 2.5em;
     color: #fff;
     margin-bottom: 30px;
 }
 
-/* Speed Leaderboard Back Button (Now only defines color) */
 #speed-leaderboard-back-button {
     color: #007bff;
 }
 
-/* Leaderboard Selection Screen Specific Styles */
-#leaderboard-selection-screen {
+#highscores-screen {
     justify-content: center;
     padding-top: 100px;
     gap: 40px;
@@ -276,8 +261,7 @@ body {
     padding-bottom: 60px;
 }
 
-/* Override screen-title specific for Leaderboard Selection screen to be red */
-#leaderboard-selection-screen .screen-title {
+#highscores-screen .screen-title {
     color: #dc3545;
     position: absolute;
     top: 30px;
@@ -286,13 +270,11 @@ body {
     margin-bottom: 0;
 }
 
-/* Back button specific for Leaderboard Selection screen (Now only defines color) */
-#leaderboard-select-back-button {
+#highscores-back-button {
     color: #007bff;
 }
 
-/* Challenges Screen Specific Styles */
-#challenges-screen {
+#mode-selection-screen {
     justify-content: center;
     padding-top: 100px;
     gap: 40px;
@@ -300,8 +282,7 @@ body {
     padding-bottom: 60px;
 }
 
-/* Override screen-title specific for Challenges screen to be blue */
-#challenges-screen .screen-title {
+#mode-selection-screen .screen-title {
     color: #007bff;
     position: absolute;
     top: 30px;
@@ -311,20 +292,18 @@ body {
 }
 
 .normal-mode-option {
-    color: #007bff;
+    color: #800080FF;
 }
 
 .speed-challenge-option {
     color: #ffc107;
 }
 
-/* Back button specific for Challenges screen (Now only defines color) */
-#challenges-back-button {
+#mode-selection-back-button {
     color: #007bff;
 }
 
-/* Normal Mode Game Screen Specific Styles */
-#normal-game-screen {
+#normal-gameplay-screen {
     justify-content: center;
     padding-top: 80px;
     padding-bottom: 60px;
@@ -395,7 +374,64 @@ body {
     transform: scale(1.03);
 }
 
-/* Normal Game Back Button (Now only defines color) */
-#normal-game-back-button {
+#normal-gameplay-back-button {
     color: #007bff;
+}
+
+#game-over-screen {
+    gap: 15px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+#game-over-screen .screen-title {
+    position: static;
+    font-size: 3em;
+    margin-bottom: 0;
+}
+
+.title-success {
+    color: #28a745;
+}
+
+.title-failure {
+    color: #dc3545;
+}
+
+#game-over-screen .screen-subtitle {
+    font-size: 1.4em;
+    color: #ccc;
+    margin-top: -10px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#game-over-screen .final-score {
+    font-size: 1.2em;
+    color: #eee;
+}
+
+#game-over-screen .back-button.fixed-bottom-left-button {
+    font-size: 1.1em;
+    padding: 8px 16px;
+}
+
+.music-button {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    z-index: 100;
+}
+
+.music-button:hover {
+    transform: scale(1.1);
+}
+
+.music-button.muted {
+    opacity: 0.6;
 }

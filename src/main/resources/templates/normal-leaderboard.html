@@ -15,8 +15,10 @@
                 <p th:text="${entry.playerName} + ' - ' + ${entry.score} + ' - ' + ${#temporals.format(entry.achievedAt, 'dd.MM.yyyy')}"></p>
             </div>
         </div>
-        <a class="back-button fixed-bottom-left-button" th:href="@{/leaderboard}">Back<span class="emoji">⬅️</span></a>
+        <a class="back-button fixed-bottom-left-button" th:href="@{/highscores}">Back<span class="emoji">⬅️</span></a>
     </section>
 </div>
+<audio id="background-music" src="/music/background-loop.mp3" loop></audio>
+<script src="/js/music-player.js"></script>
 </body>
 </html>

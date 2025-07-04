@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/leaderboard")
+@RequestMapping("/highscores")
 public class LeaderboardViewController {
 
     private final LeaderboardService leaderboardService;
@@ -22,8 +22,8 @@ public class LeaderboardViewController {
     }
 
     @GetMapping
-    public String viewLeaderboardSelection() {
-        return "leaderboard-selection";
+    public String viewHighscores() {
+        return "highscores";
     }
 
     @GetMapping("/{gameModeString}")
@@ -35,13 +35,13 @@ public class LeaderboardViewController {
 
             if (gameMode == GameMode.NORMAL) {
                 return "normal-leaderboard";
-            } else {
-                // Assuming you create a "speed-leaderboard.html" similar to "normal-leaderboard.html"
+            } else if (gameMode == GameMode.SPEED) {
                 return "speed-leaderboard";
+            } else {
+                return "redirect:/highscores";
             }
         } catch (IllegalArgumentException e) {
-            // Optional: redirect to an error page
-            return "redirect:/leaderboard";
+            return "redirect:/highscores";
         }
     }
 }

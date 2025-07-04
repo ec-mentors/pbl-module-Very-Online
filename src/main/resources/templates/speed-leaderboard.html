@@ -7,7 +7,7 @@
 </head>
 <body>
 <div id="game-container">
-    <section class="game-screen active" id="normal-leaderboard-screen">
+    <section class="game-screen active" id="speed-leaderboard-screen">
         <h2>Speed Mode Scores</h2>
         <div class="leaderboard-table">
             <p th:if="${#lists.isEmpty(entries)}">No scores yet. Be the first!</p>
@@ -15,8 +15,10 @@
                 <p th:text="${entry.playerName} + ' - ' + ${entry.score} + ' - ' + ${#temporals.format(entry.achievedAt, 'dd.MM.yyyy')}"></p>
             </div>
         </div>
-        <a class="back-button fixed-bottom-left-button" th:href="@{/leaderboard}">Back<span class="emoji">⬅️</span></a>
+        <a class="back-button fixed-bottom-left-button" th:href="@{/highscores}">Back<span class="emoji">⬅️</span></a>
     </section>
 </div>
+<audio id="background-music" src="/music/background-loop.mp3" loop></audio>
+<script src="/js/music-player.js"></script>
 </body>
 </html>

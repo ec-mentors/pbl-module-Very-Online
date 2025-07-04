@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Game Over</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div id="game-container">
+  <section class="game-screen active" id="game-over-screen">
+    <h1 class="screen-title" th:text="${title}" th:classappend="${status == 'success' ? 'title-success' : 'title-failure'}">
+      Game Over!
+    </h1>
+    <p class="screen-subtitle" th:text="${subtitle}">You ran out of lives.</p>
+
+    <p class="final-score">Your final score: <span th:text="${finalScore}">0</span></p>
+
+    <div class="score-save-section" style="margin-top: 20px;">
+      <p>Enter your name to save your score:</p>
+      <form method="post" th:action="@{/save-score}" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+        <input type="hidden" name="finalScore" th:value="${finalScore}" />
+        <input type="text" name="playerName" placeholder="Your Name" required class="answer-input" style="width: 200px;"/>
+        <button type="submit" class="action-button">Save Score</button>
+      </form>
+    </div>
+
+    <a class="back-button fixed-bottom-left-button" th:href="@{/}">Back to Main Menu<span class="emoji">⬅️</span></a>
+  </section>
+</div>
+<audio id="background-music" src="/music/background-loop.mp3" loop></audio>
+<script src="/js/music-player.js"></script>
+</body>
+</html>

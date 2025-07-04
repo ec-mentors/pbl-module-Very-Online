@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set; // Import Set
 
 @Service
 public class QuestionService {
@@ -40,5 +41,20 @@ public class QuestionService {
         }
         Collections.shuffle(questions);
         return Optional.of(questions.get(0));
+    }
+
+    public Optional<Question> getRandomQuestionExcludingIds(Set<Long> excludedQuestionIds) {
+        List<Question> allQuestions = questionRepository.findAll();
+
+        List<Question> availableQuestions = allQuestions.stream()
+                .filter(question -> !excludedQuestionIds.contains(question.getId()))
+                .collect(java.util.stream.Collectors.toList());
+
+        if (availableQuestions.isEmpty()) {
+            return Optional.empty();
+        }
+
+        Collections.shuffle(availableQuestions);
+        return Optional.of(availableQuestions.get(0));
     }
 }
