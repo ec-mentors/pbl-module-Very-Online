@@ -2,7 +2,7 @@ package io.everyonecodes.brain_tease_project_bw.controller.view;
 
 import io.everyonecodes.brain_tease_project_bw.domain.GameMode;
 import io.everyonecodes.brain_tease_project_bw.domain.Question;
-import io.everyonecodes.brain_tease_project_bw.logic.LeaderboardService; // Not needed in this controller anymore if saving moves
+import io.everyonecodes.brain_tease_project_bw.logic.LeaderboardService;
 import io.everyonecodes.brain_tease_project_bw.logic.QuestionService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
@@ -21,9 +21,11 @@ import java.util.Set;
 @RequestMapping("/mode-selection/normal-gameplay")
 public class GameController {
 
+    private final LeaderboardService leaderboardService;
     private final QuestionService questionService;
 
-    public GameController(QuestionService questionService) {
+    public GameController(LeaderboardService leaderboardService, QuestionService questionService) {
+        this.leaderboardService = leaderboardService;
         this.questionService = questionService;
     }
 
@@ -44,27 +46,35 @@ public class GameController {
         }
 
         if (lives <= 0) {
-            Integer finalScore = (Integer) session.getAttribute("score");
+            int finalScore = (int) session.getAttribute("score");
             session.removeAttribute("score");
             session.removeAttribute("lives");
             session.removeAttribute("answeredQuestionIds");
 
-            return "redirect:/game-over?finalScore="
-                    + finalScore
-                    + "&title=Game Over!&subtitle=You ran out of lives.&status=failure";
+            if (leaderboardService.isHighscore(finalScore, GameMode.NORMAL)) {
+                return "redirect:/game-over-highscore?finalScore=" + finalScore;
+            } else {
+                return "redirect:/game-over?finalScore="
+                        + finalScore
+                        + "&title=Game Over!&subtitle=You ran out of lives.&status=failure";
+            }
         }
 
         Optional<Question> oQuestion = questionService.getRandomQuestionExcludingIds(answeredQuestionIds);
 
         if (oQuestion.isEmpty()) {
-            Integer finalScore = (Integer) session.getAttribute("score");
+            int finalScore = (int) session.getAttribute("score");
             session.removeAttribute("score");
             session.removeAttribute("lives");
             session.removeAttribute("answeredQuestionIds");
 
-            return "redirect:/game-over?finalScore="
-                    + finalScore
-                    + "&title=Congratulations!&subtitle=You answered all the questions!&status=success";
+            if (leaderboardService.isHighscore(finalScore, GameMode.NORMAL)) {
+                return "redirect:/game-over-highscore?finalScore=" + finalScore;
+            } else {
+                return "redirect:/game-over?finalScore="
+                        + finalScore
+                        + "&title=Game Over!&subtitle=You ran out of questions.&status=failure";
+            }
         }
 
         String livesDisplay = String.join("", Collections.nCopies(lives, "❤️"));

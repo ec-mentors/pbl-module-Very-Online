@@ -3,7 +3,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const audio = document.getElementById('background-music');
     if (!audio) return;
 
-    const MUSIC_STATE_KEY = 'musicState'; // 'playing' or 'stopped'
+    const VOLUME_KEY = 'musicVolume';
+    const savedVolume = localStorage.getItem(VOLUME_KEY);
+    if (savedVolume !== null) {
+        audio.volume = savedVolume / 100;
+    } else {
+        audio.volume = 0.5;
+    }
+
+    const MUSIC_STATE_KEY = 'musicState';
     const MUSIC_TIME_KEY = 'musicTime';
 
     const musicToggleButton = document.getElementById('music-toggle-button');

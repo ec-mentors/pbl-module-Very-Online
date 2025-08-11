@@ -30,14 +30,16 @@ public class ViewController {
             @RequestParam("title") String title,
             @RequestParam("subtitle") String subtitle,
             @RequestParam("finalScore") int finalScore,
-            @RequestParam("status") String status,
-            Model model) {
-
+            @RequestParam("status") String status, Model model) {
         model.addAttribute("title", title);
         model.addAttribute("subtitle", subtitle);
         model.addAttribute("finalScore", finalScore);
         model.addAttribute("status", status);
-
         return "game-over";
+    }
+    @GetMapping("/game-over-highscore")
+    public String showNewHighscoreScreen(@RequestParam("finalScore") int finalScore, Model model) {
+        model.addAttribute("finalScore", finalScore);
+        return "game-over-highscore";
     }
 }

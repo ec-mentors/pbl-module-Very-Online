@@ -8,12 +8,23 @@
 <body>
 <div id="game-container">
     <section class="game-screen active" id="normal-leaderboard-screen">
-        <h2>Normal Mode Scores</h2>
-        <div class="leaderboard-table">
-            <p th:if="${#lists.isEmpty(entries)}">No scores yet. Be the first!</p>
-            <div th:each="entry : ${entries}">
-                <p th:text="${entry.playerName} + ' - ' + ${entry.score} + ' - ' + ${#temporals.format(entry.achievedAt, 'dd.MM.yyyy')}"></p>
-            </div>
+        <h2>Normal Mode Scores <span class="emoji">🥇</span></h2>
+        <div class="leaderboard-grid">
+            <div class="leaderboard-header">Player</div>
+            <div class="leaderboard-header">Score</div>
+            <div class="leaderboard-header">Date</div>
+
+            <th:block th:if="${#lists.isEmpty(entries)}">
+                <div class="leaderboard-cell leaderboard-empty-message">
+                    No scores yet. Be the first!
+                </div>
+            </th:block>
+
+            <th:block th:each="entry : ${entries}">
+                <div class="leaderboard-cell" th:text="${entry.playerName}">PlayerName</div>
+                <div class="leaderboard-cell" th:text="${entry.score}">Score</div>
+                <div class="leaderboard-cell" th:text="${#temporals.format(entry.achievedAt, 'dd.MM.yyyy')}">Date</div>
+            </th:block>
         </div>
         <a class="back-button fixed-bottom-left-button" th:href="@{/highscores}">Back<span class="emoji">⬅️</span></a>
     </section>

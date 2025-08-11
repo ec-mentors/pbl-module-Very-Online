@@ -27,4 +27,16 @@ public class LeaderboardService {
     public List<LeaderboardEntry> getAllLeaderboardEntries() {
         return leaderboardEntryRepository.findAll();
     }
+
+    public boolean isHighscore(int score, GameMode gameMode) {
+        List<LeaderboardEntry> top5 = leaderboardEntryRepository.findTop5ByGameModeOrderByScoreDesc(gameMode);
+        if (top5.isEmpty()) {
+            return false;
+        }
+        if (top5.size() < 5) {
+            return true;
+        }
+        int lowestTopScore = top5.get(top5.size() - 1).getScore();
+        return score > lowestTopScore;
+    }
 }

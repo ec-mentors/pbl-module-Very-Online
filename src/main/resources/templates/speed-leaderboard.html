@@ -8,12 +8,27 @@
 <body>
 <div id="game-container">
     <section class="game-screen active" id="speed-leaderboard-screen">
-        <h2>Speed Mode Scores</h2>
-        <div class="leaderboard-table">
-            <p th:if="${#lists.isEmpty(entries)}">No scores yet. Be the first!</p>
-            <div th:each="entry : ${entries}">
-                <p th:text="${entry.playerName} + ' - ' + ${entry.score} + ' - ' + ${#temporals.format(entry.achievedAt, 'dd.MM.yyyy')}"></p>
-            </div>
+        <h2>Speed Mode Scores <span class="emoji">🥇</span></h2>
+        <!-- Updated Leaderboard Table -->
+        <div class="leaderboard-grid">
+            <!-- Headers -->
+            <div class="leaderboard-header">Player</div>
+            <div class="leaderboard-header">Score</div>
+            <div class="leaderboard-header">Date</div>
+
+            <!-- Message for when there are no scores -->
+            <th:block th:if="${#lists.isEmpty(entries)}">
+                <div class="leaderboard-cell leaderboard-empty-message">
+                    No scores yet. Be the first!
+                </div>
+            </th:block>
+
+            <!-- Loop through entries and create a row for each -->
+            <th:block th:each="entry : ${entries}">
+                <div class="leaderboard-cell" th:text="${entry.playerName}">PlayerName</div>
+                <div class="leaderboard-cell" th:text="${entry.score}">Score</div>
+                <div class="leaderboard-cell" th:text="${#temporals.format(entry.achievedAt, 'dd.MM.yyyy')}">Date</div>
+            </th:block>
         </div>
         <a class="back-button fixed-bottom-left-button" th:href="@{/highscores}">Back<span class="emoji">⬅️</span></a>
     </section>
