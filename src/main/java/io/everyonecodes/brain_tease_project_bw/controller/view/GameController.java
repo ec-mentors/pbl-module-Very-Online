@@ -1,6 +1,8 @@
 package io.everyonecodes.brain_tease_project_bw.controller.view;
 
+import io.everyonecodes.brain_tease_project_bw.domain.FillInTheBlankQuestion;
 import io.everyonecodes.brain_tease_project_bw.domain.GameMode;
+import io.everyonecodes.brain_tease_project_bw.domain.MultipleChoiceQuestion;
 import io.everyonecodes.brain_tease_project_bw.domain.Question;
 import io.everyonecodes.brain_tease_project_bw.logic.LeaderboardService;
 import io.everyonecodes.brain_tease_project_bw.logic.QuestionService;
@@ -77,6 +79,19 @@ public class GameController {
             }
         }
 
+        Question question = oQuestion.get();
+        model.addAttribute("question", question);
+
+        if (question instanceof MultipleChoiceQuestion) {
+            model.addAttribute("isMultipleChoice", true);
+
+            MultipleChoiceQuestion mcq = (MultipleChoiceQuestion) question;
+            Collections.shuffle(mcq.getOptions());
+
+        } else {
+            model.addAttribute("isMultipleChoice", false);
+        }
+
         String livesDisplay = String.join("", Collections.nCopies(lives, "❤️"));
         model.addAttribute("score", score);
         model.addAttribute("livesDisplay", livesDisplay);
@@ -99,7 +114,15 @@ public class GameController {
         Optional<Question> oQuestion = questionService.getQuestionById(questionId);
         if (oQuestion.isPresent()) {
             Question question = oQuestion.get();
-            if (question.getCorrectAnswer().equalsIgnoreCase(userAnswer.trim())) {
+            String correctAnswer = "";
+
+            if (question instanceof FillInTheBlankQuestion) {
+                correctAnswer = ((FillInTheBlankQuestion) question).getCorrectAnswer();
+            } else if (question instanceof MultipleChoiceQuestion) {
+                correctAnswer = ((MultipleChoiceQuestion) question).getCorrectAnswer();
+            }
+
+            if (correctAnswer.equalsIgnoreCase(userAnswer.trim())) {
                 session.setAttribute("score", score + 100);
             } else {
                 session.setAttribute("lives", lives - 1);
