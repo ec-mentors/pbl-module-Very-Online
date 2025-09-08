@@ -9,5 +9,4 @@ public class BrainTeaseProjectBwApplication {
     public static void main(String[] args) {
         SpringApplication.run(BrainTeaseProjectBwApplication.class, args);
     }
-
 }

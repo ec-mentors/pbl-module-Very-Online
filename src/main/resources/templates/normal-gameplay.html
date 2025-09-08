@@ -9,51 +9,50 @@
 <div id="game-container">
     <section class="game-screen active" id="normal-gameplay-screen">
 
+        <!-- The header remains the same, but our padding will prevent overlap -->
         <div class="game-header">
             <div class="game-info" id="score-display" th:text="'Score: ' + ${score}">Score: 0</div>
             <div class="game-info" id="lives-display" th:text="'Lives: ' + ${livesDisplay}">Lives: ❤️❤️❤️</div>
         </div>
 
-        <div th:if="${isMultipleChoice}">
-
-            <h2 class="question-text" th:text="${question.content}">What is the capital of France?</h2>
-
-            <form method="post" th:action="@{/mode-selection/normal-gameplay/submit}"
-                  style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-
-                <input name="questionId" th:value="${question.id}" type="hidden"/>
-
-                <th:block th:each="option : ${question.options}">
-                    <button type="submit" name="userAnswer" th:value="${option}" th:text="${option}"
-                            class="action-button" style="width: 300px;">
-                        An Option
-                    </button>
-                </th:block>
-            </form>
+        <!-- This is our new, dedicated box for the question text -->
+        <div class="question-box">
+            <h2 th:text="${question.content}">The question will appear here...</h2>
         </div>
 
-        <div th:if="${!isMultipleChoice}">
+        <!-- =============================================================== -->
+        <!-- RENDER THE CORRECT ANSWER FORM BASED ON THE QUESTION TYPE       -->
+        <!-- =============================================================== -->
 
-            <form method="post" style="display: flex; flex-direction: column; align-items: center; gap: 20px;"
-                  th:action="@{/mode-selection/normal-gameplay/submit}">
+        <!-- MULTIPLE CHOICE FORM (with our new 2x2 grid) -->
+        <form th:if="${isMultipleChoice}" method="post" th:action="@{/mode-selection/normal-gameplay/submit}" class="answer-grid">
+            <input name="questionId" th:value="${question.id}" type="hidden"/>
 
-                <h2 class="question-text" id="question-display" th:text="${question.content}">
-                    Solve: (200 + 100) / 10 = ?
-                </h2>
+            <!-- Loop creates the 4 buttons that will populate the grid -->
+            <th:block th:each="option : ${question.options}">
+                <button type="submit" name="userAnswer" th:value="${option}" th:text="${option}" class="action-button">
+                    Option
+                </button>
+            </th:block>
+        </form>
 
-                <input name="questionId" th:value="${question.id}" type="hidden"/>
+        <!-- FILL IN THE BLANK FORM -->
+        <form th:if="${!isMultipleChoice}" method="post"
+              style="display: flex; flex-direction: column; align-items: center; gap: 20px;"
+              th:action="@{/mode-selection/normal-gameplay/submit}">
 
-                <div style="display: flex; align-items: center; gap: 10px; font-size: 1.5em;">
-                    <span>Answer:</span>
-                    <input autofocus class="answer-input" id="answer-input" name="userAnswer"
-                           required style="width: 150px; font-size: 1em;" type="text">
-                </div>
+            <input name="questionId" th:value="${question.id}" type="hidden"/>
 
-                <button class="action-button" id="submit-answer-button" type="submit">Submit</button>
+            <div style="display: flex; align-items: center; gap: 10px; font-size: 1.5em;">
+                <span>Answer:</span>
+                <input autofocus class="answer-input" id="answer-input" name="userAnswer"
+                       required style="width: 150px; font-size: 1em;" type="text">
+            </div>
 
-            </form>
-        </div>
+            <button class="action-button" id="submit-answer-button" type="submit">Submit</button>
+        </form>
 
+        <!-- The back button remains at the bottom left -->
         <a class="back-button fixed-bottom-left-button" id="normal-game-back-button"
            th:href="@{/mode-selection/normal-gameplay/exit}">Back
             <span class="emoji">⬅️</span>
@@ -63,5 +62,6 @@
 </div>
 <audio id="background-music" src="/music/background-loop.mp3" loop></audio>
 <script src="/js/music-player.js"></script>
+<script src="/js/gameplay.js"></script>
 </body>
 </html>
