@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Speed Mode - Brain Tease</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div id="game-container">
+    <section class="game-screen active" id="speed-gameplay-screen">
+
+        <div class="game-header">
+            <div class="game-info" id="score-display" th:text="'Score: ' + ${score}">Score: 0</div>
+            <div class="game-info" id="lives-display" th:text="'Lives: ' + ${livesDisplay}">Lives: ❤️❤️❤️</div>
+        </div>
+
+        <form method="post" style="display: flex; flex-direction: column; align-items: center; gap: 20px;"
+              th:action="@{/mode-selection/speed-gameplay/submit}">
+
+            <h2 class="question-text" id="question-display" th:text="${question.content}">
+                Solve: (200 + 100) / 10 = ?
+            </h2>
+
+            <input name="questionId" th:value="${question.id}" type="hidden"/>
+
+            <div style="display: flex; align-items: center; gap: 10px; font-size: 1.5em;">
+                <span>Answer:</span>
+                <input autofocus class="answer-input" id="answer-input" name="userAnswer"
+                       required style="width: 150px; font-size: 1em;" type="text">
+            </div>
+
+            <button class="action-button" id="submit-answer-button" type="submit">Submit</button>
+
+        </form>
+
+        <a class="back-button fixed-bottom-left-button" id="normal-game-back-button" th:href="@{/mode-selection}">Back
+            <span class="emoji">⬅️</span></a>
+
+    </section>
+</div>
+<audio id="background-music" src="/music/background-loop.mp3" loop></audio>
+<script src="/js/music-player.js"></script>
+</body>
+</html>

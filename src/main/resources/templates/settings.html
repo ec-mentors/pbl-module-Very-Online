@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Settings</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div id="game-container">
+    <section class="game-screen active" id="settings-screen">
+        <h2 class="screen-title">Settings <span class="emoji">🔧</span></h2>
+        <div class="setting-group">
+            <p class="setting-label">Volume <span class="emoji">🔊</span></p>
+            <input type="range" id="volume-slider" min="0" max="100" value="50" style="width: 80%;">
+            <p class="setting-value" id="volume-value">50%</p>
+        </div>
+        <a class="back-button fixed-bottom-left-button" th:href="@{/}">Back<span class="emoji">⬅️</span></a>
+    </section>
+</div>
+<audio id="background-music" src="/music/background-loop.mp3" loop></audio>
+<script src="/js/music-player.js"></script>
+<script src="/js/settings.js" defer></script>
+</body>
+</html>

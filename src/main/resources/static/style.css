@@ -1,0 +1,545 @@
+body {
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #333;
+    color: #eee;
+    margin: 0;
+    overflow: hidden;
+}
+
+#game-container {
+    width: 600px;
+    height: 500px;
+    background-color: #2e2e2e;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    position: relative;
+    overflow: hidden;
+}
+
+.game-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #2e2e2e;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.menu-button, .mode-button, .back-button, .action-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 1.5em;
+    transition: transform 0.2s ease-in-out, color 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    text-decoration: none;
+}
+
+.back-button {
+    gap: 0;
+}
+
+.menu-button:hover, .mode-button:hover, .back-button:hover, .action-button:hover {
+    transform: scale(1.05);
+}
+
+.emoji {
+    font-size: 1em;
+    line-height: 1;
+}
+
+.fixed-bottom-left-button {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transform: translateX(0);
+    font-size: 1.5em;
+    padding: 10px 20px;
+    z-index: 11;
+}
+
+.fixed-bottom-left-button:hover {
+    transform: scale(1.05);
+}
+
+.screen-title {
+    font-size: 3em;
+    color: #fff;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: absolute;
+    top: 30px;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+}
+
+#main-menu {
+    padding-top: 50px;
+    padding-bottom: 60px;
+}
+
+#main-menu h1 {
+    font-size: 3.5em;
+    color: #fff;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: -80px;
+}
+
+#main-menu h1 .emoji {
+    font-size: 1.1em;
+}
+
+.main-menu-options {
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+#play-button {
+    color: #007bff;
+}
+
+#highscores-button {
+    color: #dc3545;
+}
+
+#settings-button {
+    color: #28a745;
+}
+
+#settings-screen {
+    justify-content: center;
+    padding-top: 30px;
+    gap: 40px;
+    position: relative;
+    padding-bottom: 60px;
+}
+
+#settings-screen .screen-title {
+    color: #28a745;
+    margin-bottom: 0;
+}
+
+.setting-group {
+    width: 80%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+#settings-screen .setting-group:first-of-type {
+    margin-top: 100px;
+}
+
+.setting-label {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #eee;
+}
+
+.setting-value {
+    font-size: 1.5em;
+    margin-top: 5px;
+    color: #bbb;
+}
+
+.volume-slider-container {
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.volume-track {
+    width: 80%;
+    height: 5px;
+    background-color: #555;
+    border-radius: 5px;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.volume-fill {
+    height: 100%;
+    background-color: #007bff;
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+}
+
+.volume-thumb {
+    width: 18px;
+    height: 18px;
+    background-color: #fff;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+.volume-labels {
+    width: 80%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    color: #bbb;
+}
+
+#settings-back-button {
+    color: #007bff;
+}
+
+/* Add padding to the bottom of leaderboard screens to prevent overlap */
+#normal-leaderboard-screen, #speed-leaderboard-screen {
+    padding-bottom: 75px; /* Creates a "safe zone" for the back button */
+}
+
+#normal-leaderboard-screen h2 {
+    font-size: 2.5em;
+    color: #007bff;
+    margin-bottom: 30px;
+}
+
+/* New Leaderboard Table Styles */
+.leaderboard-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr; /* 3 columns for Player, Score, Date */
+    gap: 10px;
+    width: 90%;
+    max-width: 500px;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.leaderboard-header {
+    font-weight: bold;
+    color: #007bff; /* A standout color for headers */
+    padding: 12px 10px;
+    font-size: 1.2em;
+    border-bottom: 2px solid #555;
+}
+
+.leaderboard-cell {
+    background-color: #3a3a3a;
+    padding: 12px 10px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    /* Vertically center the text */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Style for the message when the leaderboard is empty */
+.leaderboard-empty-message {
+    grid-column: 1 / -1; /* Make this cell span all columns */
+    background-color: #444;
+    padding: 15px;
+    border-radius: 5px;
+    font-style: italic;
+    color: #aaa;
+}
+
+#normal-leaderboard-back-button {
+    color: #007bff;
+}
+
+#speed-leaderboard-screen h2 {
+    font-size: 2.5em;
+    color: #ffc107;
+    margin-bottom: 30px;
+}
+
+#speed-leaderboard-back-button {
+    color: #007bff;
+}
+
+#highscores-screen {
+    justify-content: center;
+    padding-top: 100px;
+    gap: 40px;
+    position: relative;
+    padding-bottom: 60px;
+}
+
+#highscores-screen .screen-title {
+    color: #dc3545;
+    position: absolute;
+    top: 30px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+#highscores-back-button {
+    color: #007bff;
+}
+
+#mode-selection-screen {
+    justify-content: center;
+    padding-top: 100px;
+    gap: 40px;
+    position: relative;
+    padding-bottom: 60px;
+}
+
+#mode-selection-screen .screen-title {
+    color: #007bff;
+    position: absolute;
+    top: 30px;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.normal-mode-option {
+    color: #800080FF;
+}
+
+.speed-challenge-option {
+    color: #ffc107;
+}
+
+#mode-selection-back-button {
+    color: #007bff;
+}
+
+#normal-gameplay-screen {
+    justify-content: center;
+    padding-top: 80px;
+    padding-bottom: 60px;
+    gap: 30px;
+    position: relative;
+}
+
+.game-header {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 500px;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #eee;
+    font-size: 1.2em;
+}
+
+.game-info {
+    padding: 5px 10px;
+    background-color: #3a3a3a;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.question-text {
+    font-size: 2.2em;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+
+.answer-input {
+    width: 80%;
+    max-width: 400px;
+    padding: 15px;
+    font-size: 1.5em;
+    text-align: center;
+    border: 2px solid #007bff;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    color: #333;
+    outline: none;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.answer-input:focus {
+    border-color: #0056b3;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3), 0 0 8px rgba(0, 123, 255, 0.5);
+}
+
+.action-button {
+    background-color: #28a745;
+    color: #fff;
+    border-radius: 8px;
+    padding: 12px 25px;
+    font-size: 1.3em;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.action-button:hover {
+    background-color: #218838;
+    transform: scale(1.03);
+}
+
+#normal-gameplay-back-button {
+    color: #007bff;
+}
+
+#game-over-screen {
+    gap: 15px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+#game-over-screen .screen-title {
+    position: static;
+    font-size: 3em;
+    margin-bottom: 0;
+}
+
+.title-success {
+    color: #28a745;
+}
+
+.title-failure {
+    color: #dc3545;
+}
+
+#game-over-screen .screen-subtitle {
+    font-size: 1.4em;
+    color: #ccc;
+    margin-top: -10px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+#game-over-screen .final-score {
+    font-size: 1.2em;
+    color: #eee;
+}
+
+#game-over-screen .back-button.fixed-bottom-left-button {
+    font-size: 1.1em;
+    padding: 8px 16px;
+}
+
+#game-over-highscore-screen .screen-title {
+    position: static;
+    font-size: 2.3em;
+    margin-bottom: 15px;
+}
+
+#game-over-highscore-screen .screen-subtitle {
+    margin-bottom: 15px;
+}
+
+.music-button {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+    z-index: 100;
+}
+
+.music-button:hover {
+    transform: scale(1.1);
+}
+
+.music-button.muted {
+    opacity: 0.6;
+}
+
+/* --- New Gameplay Screen Layout Styles --- */
+
+/* Add padding to the top of the screen to create a safe-zone for the header */
+#normal-gameplay-screen {
+    padding-top: 80px;
+    justify-content: flex-start; /* Align content to the top instead of center */
+    gap: 25px; /* Increase space between question box and answers */
+}
+
+/* The new box for the question text */
+.question-box {
+    width: 90%;
+    max-width: 550px;
+    height: 150px; /* A fixed height for the question area */
+    background-color: #3a3a3a;
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+    padding: 15px;
+    box-sizing: border-box;
+
+    /* Flexbox to perfectly center the text inside */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow-y: auto;
+}
+
+.question-box.is-overflowing {
+    align-items: flex-start; /* Align to the top */
+}
+
+/* Remove default margins from the h2 inside our new box */
+.question-box h2 {
+    margin: 0;
+    font-size: 1.9em;
+    color: #fff;
+}
+
+/* The 2x2 grid container for multiple choice answers */
+.answer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Two equal-width columns */
+    grid-template-rows: repeat(2, 1fr);    /* Two equal-height rows */
+    gap: 15px;
+    width: 90%;
+    max-width: 500px;
+    height: 180px; /* A fixed height for the grid */
+}
+
+/* Make the answer buttons fill their grid cells */
+.answer-grid .action-button {
+    width: 100%;
+    height: 100%;
+    margin: 0; /* Remove any default margins */
+    font-size: 1.2em;
+    padding: 10px;
+    display: flex; /* Helps center text in the button */
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- End of New Styles --- */

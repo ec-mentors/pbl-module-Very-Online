@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Speed Leaderboard</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div id="game-container">
+    <section class="game-screen active" id="speed-leaderboard-screen">
+        <h2>Speed Mode Scores <span class="emoji">🥇</span></h2>
+        <div class="leaderboard-grid">
+            <div class="leaderboard-header">Player</div>
+            <div class="leaderboard-header">Score</div>
+            <div class="leaderboard-header">Date</div>
+
+            <th:block th:if="${#lists.isEmpty(entries)}">
+                <div class="leaderboard-cell leaderboard-empty-message">
+                    No scores yet. Be the first!
+                </div>
+            </th:block>
+
+            <th:block th:each="entry : ${entries}">
+                <div class="leaderboard-cell" th:text="${entry.playerName}">PlayerName</div>
+                <div class="leaderboard-cell" th:text="${entry.score}">Score</div>
+                <div class="leaderboard-cell" th:text="${#temporals.format(entry.achievedAt, 'dd.MM.yyyy')}">Date</div>
+            </th:block>
+        </div>
+        <a class="back-button fixed-bottom-left-button" th:href="@{/highscores}">Back<span class="emoji">⬅️</span></a>
+    </section>
+</div>
+<audio id="background-music" src="/music/background-loop.mp3" loop></audio>
+<script src="/js/music-player.js"></script>
+</body>
+</html>

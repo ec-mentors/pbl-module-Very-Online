@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Challenges</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div id="game-container">
+    <section class="game-screen active" id="mode-selection-screen">
+        <h1 class="screen-title">Mode Selection <span class="emoji">🤖⚡</span></h1>
+        <a class="mode-button normal-mode-option" th:href="@{/mode-selection/normal-gameplay}">Normal Mode <span class="emoji">🤖</span></a>
+        <a class="mode-button speed-challenge-option" th:href="@{/mode-selection/speed-gameplay}">Speed Challenge <span class="emoji">⚡</span></a>
+        <a class="back-button fixed-bottom-left-button" th:href="@{/}">Back<span class="emoji">⬅️</span></a>
+    </section>
+</div>
+<audio id="background-music" src="/music/background-loop.mp3" loop></audio>
+<script src="/js/music-player.js"></script>
+</body>
+</html>

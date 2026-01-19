@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>New High Score!</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+<div id="game-container">
+  <section class="game-screen active" id="game-over-highscore-screen">
+    <h1 class="screen-title title-success">You made the Leaderboard! 🏆</h1>
+    <p class="screen-subtitle">Your amazing score gets a spot among the best!</p>
+
+    <p class="final-score">Final score: <span th:text="${finalScore}">0</span></p>
+
+    <div class="score-save-section" style="margin-top: 20px;">
+      <p>Enter your name to claim your spot:</p>
+      <!-- This form now posts to the correct endpoint -->
+      <form method="post" th:action="@{/leaderboard/save}" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+        <!-- Hidden inputs to send the score and game mode -->
+        <input type="hidden" name="score" th:value="${finalScore}"/>
+        <input type="hidden" name="gameMode" value="NORMAL"/>
+
+        <input type="text" name="playerName" placeholder="Your Name" required class="answer-input" style="width: 250px;"/>
+        <button type="submit" class="action-button">Save My Highscore</button>
+      </form>
+    </div>
+
+    <a class="back-button fixed-bottom-left-button" th:href="@{/}">Back to Main Menu <span class="emoji">⬅️</span></a>
+  </section>
+</div>
+<audio id="background-music" src="/music/background-loop.mp3" loop></audio>
+<script src="/js/music-player.js"></script>
+</body>
+</html>
